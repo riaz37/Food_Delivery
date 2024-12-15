@@ -17,6 +17,13 @@ export class RegisterDto {
   @IsNotEmpty({ message: 'Password is required' })
   @MinLength(6)
   password: string;
+
+  @Field()
+  @IsNotEmpty({ message: 'Phone number is required' })
+  phone_number: number;
+
+  @Field()
+  address: string;
 }
 
 export class LoginDto {

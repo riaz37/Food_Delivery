@@ -4,8 +4,14 @@
   "sourceRoot": "apps/gateway/src",
   "compilerOptions": {
     "deleteOutDir": true,
-    "webpack": true,
-    "tsConfigPath": "apps/gateway/tsconfig.app.json"
+    "webpack": false,
+    "tsConfigPath": "apps/gateway/tsconfig.app.json",
+    "assets": [
+      {
+        "include": "../email-template/**/*",
+        "outDir": "./dist/apps/users/email-template"
+      }
+    ]
   },
   "monorepo": true,
   "root": "",

@@ -5,18 +5,32 @@ import {
   ApolloFederationDriver,
   ApolloFederationDriverConfig,
 } from '@nestjs/apollo';
-import { ConfigService } from '@nestjs/config';
+import { ConfigModule, ConfigService } from '@nestjs/config';
+import { JwtModule } from '@nestjs/jwt';
 import { JwtService } from '@nestjs/jwt';
 import { PrismaService } from 'prisma/prisma.service';
 import { UsersResolver } from './users.resolver';
+import { EmailModule } from './email/email.module';
+import { EmailService } from './email/email.service';
 
 @Module({
-  imports: [GraphQLModule.forRoot<ApolloFederationDriverConfig>({
-    driver: ApolloFederationDriver,
-    autoSchemaFile: {
-      federation: 2,},
-  })],
-  controllers: [],
-  providers: [UsersService, ConfigService, JwtService, PrismaService, UsersResolver],
+  imports: [
+    ConfigModule.forRoot({ isGlobal: true }),
+    GraphQLModule.forRoot<ApolloFederationDriverConfig>({
+      driver: ApolloFederationDriver,
+      autoSchemaFile: {
+        federation: 2,
+      },
+    }),
+    EmailModule,
+  ],
+  providers: [
+    UsersService,
+    ConfigService,
+    JwtService,
+    PrismaService,
+    UsersResolver,
+    EmailService,
+  ],
 })
 export class UsersModule {}
